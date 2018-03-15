@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Button, Alert, Text, View, Image } from "react-native";
-
+//stanley was here
 class Greeting extends React.Component {
   render() {
     return <Text>Hello {this.props.name}!</Text>;
