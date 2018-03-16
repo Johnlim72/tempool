@@ -1,74 +1,128 @@
-import React, { Component } from "react";
-import { StyleSheet, Button, Alert, Text, View, Image } from "react-native";
+import React from "react";
+import { StyleSheet, Button, View, Text } from "react-native";
+import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
 
-class Greeting extends React.Component {
+class InitialScreen extends React.Component {
   render() {
-    return <Text>Hello {this.props.name}!</Text>;
-  }
+
+      return (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 2,
+              backgroundColor: "lightgray",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Text
+              style={{
+                color: "darkred",
+                fontSize: 30
+              }}
+            >
+              TemPool
+            </Text>
+          </View>
+          <View style={{ flex: 1, backgroundColor: "darkred" }}>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Go to Credentials"
+                onPress={() => this.props.navigation.navigate("Credentials")}
+              />
+
+            </View>
+          </View>
+
+          {/*<Image source={pic} style={{width: 193, height: 110}}/>
+  		   <Blink text='My name is John Lim blinking'/>
+  		   <Greeting name= "John" /> */}
+        </View>
+      );
+    }
+
 }
 
-class Blink extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { isShowingText: true };
-
-    // Toggle the state every second
-    setInterval(() => {
-      this.setState(previousState => {
-        return { isShowingText: !previousState.isShowingText };
-      });
-    }, 1000);
-  }
-
+class CredentialsScreen extends React.Component {
   render() {
-    let display = this.state.isShowingText ? this.props.text : " ";
-    return <Text>{display}</Text>;
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Credentials Screen</Text>
+        <Button
+          title="Go to Login"
+          onPress={() => this.props.navigation.navigate("Login")}
+        />
+        <Button
+          title="Go to Sign up"
+          onPress={() => this.props.navigation.navigate("Signup")}
+        />
+      </View>
+    );
   }
+
 }
+
+class LoginScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Login Screen</Text>
+        <Button
+          title="Go to Login"
+          onPress={() => this.props.navigation.navigate("Login")}
+        />
+        <Button
+          title="Go to Sign up"
+          onPress={() => this.props.navigation.navigate("Signup")}
+        />
+      </View>
+    );
+  }
+
+}
+
+class SignupScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Signup Screen</Text>
+        <Button
+          title="Go to Login"
+          onPress={() => this.props.navigation.navigate("Login")}
+        />
+        <Button
+          title="Go to Sign up"
+          onPress={() => this.props.navigation.navigate("Signup")}
+        />
+      </View>
+    );
+  }
+
+}
+
+const RootStack = StackNavigator(
+  {
+    Initial: {
+      screen: InitialScreen
+    },
+    Credentials: {
+      screen: CredentialsScreen
+    },
+    Login: {
+      screen: LoginScreen
+    },
+    Signup: {
+      screen: SignupScreen
+    }
+  },
+  {
+    initialRouteName: "Initial"
+  }
+);
 
 export default class App extends React.Component {
   render() {
-    let pic = {
-      uri:
-        "https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg"
-    };
-
-    return (
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <View
-          style={{
-            flex: 2,
-            backgroundColor: "lightgray",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <Text
-            style={{
-              color: "darkred",
-              fontSize: 30
-            }}
-          >
-            TemPool
-          </Text>
-        </View>
-        <View style={{ flex: 1, backgroundColor: "darkred" }}>
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={() => {
-                Alert.alert("Welcome to TemPool!");
-              }}
-              title="Start"
-              color="black"
-            />
-          </View>
-        </View>
-
-        {/*<Image source={pic} style={{width: 193, height: 110}}/>
-		   <Blink text='My name is John Lim blinking'/>
-		   <Greeting name= "John" /> */}
-      </View>
-    );
+    return <RootStack />;
   }
 }
 
