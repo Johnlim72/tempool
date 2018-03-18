@@ -103,16 +103,21 @@ class SignupScreen extends React.Component {
     super(props);
 
     this.state = {
-      TextInputName: "",
+      TextInputFirstName: "",
+      TextInputLastName: "",
       TextInputEmail: "",
+      TextPassword: "",
       TextInputPhoneNumber: ""
     };
   }
 
   InsertDataToServer = () => {
-    const { TextInputName } = this.state;
+    const { TextInputFirstName } = this.state;
+    const { TextInputLastName } = this.state;
     const { TextInputEmail } = this.state;
+    const { TextPassword } = this.state;
     const { TextInputPhoneNumber } = this.state;
+
     fetch("php/submit_user_info.php", {
       method: "POST",
       headers: {
@@ -120,10 +125,10 @@ class SignupScreen extends React.Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: TextInputName,
-
+        first_name: TextInputFirstName,
+        last_name: TextInputLastName,
         email: TextInputEmail,
-
+        password: TextPassword,
         phone_number: TextInputPhoneNumber
       })
     })
@@ -149,9 +154,17 @@ class SignupScreen extends React.Component {
         <TextInput
           style={styles.textInput}
           placeholder="First Name"
-          onChangeText={TextInputName => this.setState({ TextInputName })}
+          onChangeText={TextInputFirstName =>
+            this.setState({ TextInputFirstName })
+          }
         />
-        <TextInput style={styles.textInput} placeholder="Last Name" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Last Name"
+          onChangeText={TextInputLastName =>
+            this.setState({ TextInputLastName })
+          }
+        />
         <TextInput
           style={styles.textInput}
           placeholder="TU Email"
@@ -161,6 +174,7 @@ class SignupScreen extends React.Component {
           style={styles.textInput}
           secureTextEntry={true} //does the *** thing
           placeholder="Password"
+          onChangeText={TextPassword => this.setState({ TextPassword })}
         />
         <TextInput
           style={styles.textInput}
