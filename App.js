@@ -148,6 +148,7 @@ class LoginScreen extends React.Component {
     );
   }
 }
+
 class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
