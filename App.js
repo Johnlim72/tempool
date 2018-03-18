@@ -1,65 +1,83 @@
 import React from "react";
-import { StyleSheet, Button, View, Text } from "react-native";
+import {
+  AppRegistry,
+  Alert,
+  StyleSheet,
+  Button,
+  View,
+  Text,
+  TextInput
+} from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
 
 class InitialScreen extends React.Component {
   render() {
-
-      return (
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <View
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <View
+          style={{
+            flex: 2,
+            backgroundColor: "lightgray",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Text
             style={{
-              flex: 2,
-              backgroundColor: "lightgray",
-              justifyContent: "center",
-              alignItems: "center"
+              color: "darkred",
+              fontSize: 30
             }}
           >
-            <Text
-              style={{
-                color: "darkred",
-                fontSize: 30
-              }}
-            >
-              TemPool
-            </Text>
+            TemPool
+          </Text>
+        </View>
+        <View style={{ flex: 1, backgroundColor: "darkred" }}>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Start"
+              onPress={() => this.props.navigation.navigate("Credentials")}
+              color="darkred"
+            />
           </View>
-          <View style={{ flex: 1, backgroundColor: "darkred" }}>
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Go to Credentials"
-                onPress={() => this.props.navigation.navigate("Credentials")}
-              />
+        </View>
 
-            </View>
-          </View>
-
-          {/*<Image source={pic} style={{width: 193, height: 110}}/>
+        {/*<Image source={pic} style={{width: 193, height: 110}}/>
   		   <Blink text='My name is John Lim blinking'/>
   		   <Greeting name= "John" /> */}
-        </View>
-      );
-    }
-
+      </View>
+    );
+  }
 }
 
 class CredentialsScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Credentials Screen</Text>
-        <Button
-          title="Go to Login"
-          onPress={() => this.props.navigation.navigate("Login")}
-        />
-        <Button
-          title="Go to Sign up"
-          onPress={() => this.props.navigation.navigate("Signup")}
-        />
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "darkred"
+        }}
+      >
+        <Text style={{ color: "darkred" }}>Credentials Screen</Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Go to Login"
+            onPress={() => this.props.navigation.navigate("Login")}
+            color="darkred"
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Go to Sign Up"
+            onPress={() => this.props.navigation.navigate("Signup")}
+            color="darkred"
+          />
+        </View>
       </View>
     );
   }
-
 }
 
 class LoginScreen extends React.Component {
@@ -78,26 +96,98 @@ class LoginScreen extends React.Component {
       </View>
     );
   }
-
 }
 
 class SignupScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      TextInputName: "",
+      TextInputEmail: "",
+      TextInputPhoneNumber: ""
+    };
+  }
+
+  InsertDataToServer = () => {
+    const { TextInputName } = this.state;
+    const { TextInputEmail } = this.state;
+    const { TextInputPhoneNumber } = this.state;
+    fetch("php/submit_user_info.php", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: TextInputName,
+
+        email: TextInputEmail,
+
+        phone_number: TextInputPhoneNumber
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(responseJson);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Signup Screen</Text>
-        <Button
-          title="Go to Login"
-          onPress={() => this.props.navigation.navigate("Login")}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "darkred",
+          justifyContent: "center"
+        }}
+      >
+        <TextInput
+          style={styles.textInput}
+          placeholder="First Name"
+          onChangeText={TextInputName => this.setState({ TextInputName })}
         />
-        <Button
-          title="Go to Sign up"
-          onPress={() => this.props.navigation.navigate("Signup")}
+        <TextInput style={styles.textInput} placeholder="Last Name" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="TU Email"
+          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
         />
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true} //does the *** thing
+          placeholder="Password"
+        />
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true}
+          placeholder="Confirm Password"
+        />
+
+        <TextInput
+          style={styles.textInput}
+          placeholder="Phone Number"
+          onChangeText={TextInputPhoneNumber =>
+            this.setState({ TextInputPhoneNumber })
+          }
+        />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Sign Up"
+            onPress={
+              (() => this.props.navigation.navigate("Login"),
+              this.InsertDataToServer)
+            }
+            color="darkred"
+          />
+        </View>
       </View>
     );
   }
-
 }
 
 const RootStack = StackNavigator(
@@ -150,6 +240,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#fff"
+    borderColor: "#fff",
+    padding: 20
+  },
+  textInput: {
+    //
+    height: 30, //
+    margin: 5, //
+    borderWidth: 1,
+    backgroundColor: "lightgray", //
+    borderColor: "#000" //
   }
 });
