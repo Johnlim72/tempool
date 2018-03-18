@@ -125,6 +125,7 @@ class SignupScreen extends React.Component {
     };
   }
 
+
   InsertDataToServer = () => {
     const { TextInputFirstName } = this.state;
     const { TextInputLastName } = this.state;
@@ -132,7 +133,7 @@ class SignupScreen extends React.Component {
     const { TextPassword } = this.state;
     const { TextInputPhoneNumber } = this.state;
 
-    fetch("https://s3.us-east-2.amazonaws.com/tempool/php/submit_user_info.php", {
+    fetch("https://tempool.000webhostapp.com/php/submit_user_info.php", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -207,7 +208,7 @@ class SignupScreen extends React.Component {
           <Button
             title="Sign Up"
             onPress={
-              (() => this.props.navigation.navigate("Signup"),
+              (() => this.props.navigation.navigate("Login"),
               this.InsertDataToServer)
             }
             color="darkred"
