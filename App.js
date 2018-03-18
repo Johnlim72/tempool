@@ -74,6 +74,10 @@ class CredentialsScreen extends React.Component {
             onPress={() => this.props.navigation.navigate("Signup")}
             color="darkred"
           />
+        <Button
+          title="Go to Dashboard"
+          onPress={() => this.props.navigation.navigate("Dashboard")}
+        />
         </View>
       </View>
     );
