@@ -41,9 +41,6 @@ class InitialScreen extends React.Component {
           </View>
         </View>
 
-        {/*<Image source={pic} style={{width: 193, height: 110}}/>
-  		   <Blink text='My name is John Lim blinking'/>
-  		   <Greeting name= "John" /> */}
       </View>
     );
   }
@@ -83,16 +80,33 @@ class CredentialsScreen extends React.Component {
 class LoginScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Login Screen</Text>
-        <Button
-          title="Go to Login"
-          onPress={() => this.props.navigation.navigate("Login")}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "darkred",
+          justifyContent: "center"
+        }}
+      >
+        <TextInput
+          style={styles.textInput}
+          placeholder="TU Email"
+          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
         />
-        <Button
-          title="Go to Sign up"
-          onPress={() => this.props.navigation.navigate("Signup")}
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true} //does the *** thing
+          placeholder="Password"
+          onChangeText={TextPassword => this.setState({ TextPassword })}
         />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Login"
+            onPress={
+              (() => this.props.navigation.navigate("Dashboard"))
+            }
+            color="darkred"
+          />
+        </View>
       </View>
     );
   }
@@ -118,21 +132,21 @@ class SignupScreen extends React.Component {
     const { TextPassword } = this.state;
     const { TextInputPhoneNumber } = this.state;
 
-    fetch("php/submit_user_info.php", {
+    fetch("https://s3.us-east-2.amazonaws.com/tempool/php/submit_user_info.php", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        first_name: TextInputFirstName,
-        last_name: TextInputLastName,
+        firstName: TextInputFirstName,
+        lastName: TextInputLastName,
         email: TextInputEmail,
         password: TextPassword,
-        phone_number: TextInputPhoneNumber
+        phoneNumber: TextInputPhoneNumber
       })
     })
-      .then(response => response.json())
+      .then(response => console.log(response))
       .then(responseJson => {
         // Showing response message coming from server after inserting records.
         Alert.alert(responseJson);
@@ -193,7 +207,7 @@ class SignupScreen extends React.Component {
           <Button
             title="Sign Up"
             onPress={
-              (() => this.props.navigation.navigate("Login"),
+              (() => this.props.navigation.navigate("Signup"),
               this.InsertDataToServer)
             }
             color="darkred"
@@ -203,6 +217,32 @@ class SignupScreen extends React.Component {
     );
   }
 }
+
+class DashboardScreen extends React.Component {
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "darkred",
+          justifyContent: "center"
+        }}
+      >
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Login"
+            onPress={
+              (() => this.props.navigation.navigate("Signup"))
+            }
+            color="darkred"
+          />
+        </View>
+      </View>
+    );
+  }
+}
+
 
 const RootStack = StackNavigator(
   {
@@ -217,7 +257,10 @@ const RootStack = StackNavigator(
     },
     Signup: {
       screen: SignupScreen
-    }
+    },
+    Dashboard: {
+      screen: DashboardScreen
+    },
   },
   {
     initialRouteName: "Initial"
@@ -266,3 +309,5 @@ const styles = StyleSheet.create({
     borderColor: "#000" //
   }
 });
+
+AppRegistry.registerComponent("App", () => App);
