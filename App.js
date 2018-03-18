@@ -81,18 +81,69 @@ class CredentialsScreen extends React.Component {
 }
 
 class LoginScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      LoginInputEmail: "",
+      LoginInputPassword: ""
+    };
+  }
+  InsertDataToServer = () => {
+    const {   LoginInputEmail } = this.state;
+    const { LoginInputPassword } = this.state;
+
+    fetch("php/submit_user_info.php", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: LoginInputEmail,
+        password: LoginInputPassword
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(responseJson);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Login Screen</Text>
-        <Button
-          title="Go to Login"
-          onPress={() => this.props.navigation.navigate("Login")}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "darkred",
+          justifyContent: "center"
+        }}
+      >
+        <TextInput
+          style={styles.textInput}
+          placeholder="User Email"
+          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
         />
-        <Button
-          title="Go to Sign up"
-          onPress={() => this.props.navigation.navigate("Signup")}
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true} //does the *** thing
+          placeholder="Password"
+          onChangeText={TextPassword => this.setState({ TextPassword })}
         />
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Log in"
+            onPress={
+              (() => this.props.navigation.navigate("Login"),
+              this.InsertDataToServer)
+            }
+            color="darkred"
+          />
+        </View>
       </View>
     );
   }
