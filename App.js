@@ -40,7 +40,6 @@ class InitialScreen extends React.Component {
             />
           </View>
         </View>
-
       </View>
     );
   }
@@ -101,9 +100,7 @@ class LoginScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <Button
             title="Login"
-            onPress={
-              (() => this.props.navigation.navigate("Dashboard"))
-            }
+            onPress={() => this.props.navigation.navigate("Dashboard")}
             color="darkred"
           />
         </View>
@@ -124,7 +121,6 @@ class SignupScreen extends React.Component {
       TextInputPhoneNumber: ""
     };
   }
-
 
   InsertDataToServer = () => {
     const { TextInputFirstName } = this.state;
@@ -153,7 +149,7 @@ class SignupScreen extends React.Component {
         Alert.alert(responseJson);
       })
       .catch(error => {
-        console.error(error);
+        console.error("error: " + error);
       });
   };
 
@@ -222,20 +218,18 @@ class SignupScreen extends React.Component {
 class DashboardScreen extends React.Component {
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "darkred",
-          justifyContent: "center"
-        }}
-      >
-
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <View style={styles.buttonContainer}>
           <Button
-            title="Login"
-            onPress={
-              (() => this.props.navigation.navigate("Signup"))
-            }
+            title="Find a Ride"
+            onPress={() => this.props.navigation.navigate("Login")}
+            color="darkred"
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Profile"
+            onPress={() => this.props.navigation.navigate("Profile")}
             color="darkred"
           />
         </View>
@@ -244,6 +238,107 @@ class DashboardScreen extends React.Component {
   }
 }
 
+class ProfileScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      TextInputFirstName: "",
+      TextInputLastName: "",
+      TextInputEmail: "",
+      TextPassword: "",
+      TextInputPhoneNumber: ""
+    };
+  }
+
+  UpdateDataToServer = () => {
+    const { TextInputFirstName } = this.state;
+    const { TextInputLastName } = this.state;
+    const { TextInputEmail } = this.state;
+    const { TextPassword } = this.state;
+    const { TextInputPhoneNumber } = this.state;
+
+    fetch("", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        firstName: TextInputFirstName,
+        lastName: TextInputLastName,
+        email: TextInputEmail,
+        password: TextPassword,
+        phoneNumber: TextInputPhoneNumber
+      })
+    })
+      .then(response => console.log(response))
+      .then(responseJson => {
+        // Showing response message coming from server after inserting records.
+        Alert.alert(responseJson);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "darkred",
+          justifyContent: "center"
+        }}
+      >
+        <Text style={{ color: "white" }}>Profile</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="First Name"
+          onChangeText={TextInputFirstName =>
+            this.setState({ TextInputFirstName })
+          }
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Last Name"
+          onChangeText={TextInputLastName =>
+            this.setState({ TextInputLastName })
+          }
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="TU Email"
+          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
+        />
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true} //does the *** thing
+          placeholder="Password"
+          onChangeText={TextPassword => this.setState({ TextPassword })}
+        />
+
+        <TextInput
+          style={styles.textInput}
+          placeholder="Phone Number"
+          onChangeText={TextInputPhoneNumber =>
+            this.setState({ TextInputPhoneNumber })
+          }
+        />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Save"
+            onPress={
+              (() => this.props.navigation.navigate("Login"),
+              this.UpdateDataToServer)
+            }
+            color="darkred"
+          />
+        </View>
+      </View>
+    );
+  }
+}
 
 const RootStack = StackNavigator(
   {
@@ -262,6 +357,9 @@ const RootStack = StackNavigator(
     Dashboard: {
       screen: DashboardScreen
     },
+    Profile: {
+      screen: ProfileScreen
+    }
   },
   {
     initialRouteName: "Initial"
