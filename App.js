@@ -106,9 +106,24 @@ class DashboardScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Dashboard</Text>
         <Button
           title="View Map"
+        />
+        <Button
+          title="Account Info"
+        />
+        <Button
+          title="Schedule a Ride"
+        />
+        <Button
+          title="Previous Rides"
+        />
+
+        <Button
+          title="Upcoming Rider"
+        />
+        <Button
+          title="Schedule a Ride"
         />
 
       </View>
