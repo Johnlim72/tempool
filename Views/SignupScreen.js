@@ -9,14 +9,9 @@ import {
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
-import InitialScreen from './Views/InitialScreen';
-import CredentialsScreen from './Views/CredentialsScreen';
-import LoginScreen from './Views/LoginScreen';
-import SignupScreen from './Views/SignupScreen';
-import DashboardScreen from './Views/DashboardScreen';
-import styles from './Views/style';
+import styles from './style';
 
-class ProfileScreen extends React.Component {
+export default class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,14 +24,14 @@ class ProfileScreen extends React.Component {
     };
   }
 
-  UpdateDataToServer = () => {
+  InsertDataToServer = () => {
     const { TextInputFirstName } = this.state;
     const { TextInputLastName } = this.state;
     const { TextInputEmail } = this.state;
     const { TextPassword } = this.state;
     const { TextInputPhoneNumber } = this.state;
 
-    fetch("", {
+    fetch("https://tempool.000webhostapp.com/php/submit_user_info.php", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -56,7 +51,7 @@ class ProfileScreen extends React.Component {
         Alert.alert(responseJson);
       })
       .catch(error => {
-        console.error(error);
+        console.error("error: " + error);
       });
   };
 
@@ -69,7 +64,6 @@ class ProfileScreen extends React.Component {
           justifyContent: "center"
         }}
       >
-        <Text style={{ color: "white" }}>Profile</Text>
         <TextInput
           style={styles.textInput}
           placeholder="First Name"
@@ -95,6 +89,11 @@ class ProfileScreen extends React.Component {
           placeholder="Password"
           onChangeText={TextPassword => this.setState({ TextPassword })}
         />
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true}
+          placeholder="Confirm Password"
+        />
 
         <TextInput
           style={styles.textInput}
@@ -105,11 +104,8 @@ class ProfileScreen extends React.Component {
         />
         <View style={styles.buttonContainer}>
           <Button
-            title="Save"
-            onPress={
-              (() => this.props.navigation.navigate("Login"),
-              this.UpdateDataToServer)
-            }
+            title="Sign Up"
+            onPress={this.InsertDataToServer}
             color="darkred"
           />
         </View>
@@ -117,37 +113,3 @@ class ProfileScreen extends React.Component {
     );
   }
 }
-
-const RootStack = StackNavigator(
-  {
-    Initial: {
-      screen: InitialScreen
-    },
-    Credentials: {
-      screen: CredentialsScreen
-    },
-    Login: {
-      screen: LoginScreen
-    },
-    Signup: {
-      screen: SignupScreen
-    },
-    Dashboard: {
-      screen: DashboardScreen
-    },
-    Profile: {
-      screen: ProfileScreen
-    }
-  },
-  {
-    initialRouteName: "Initial"
-  }
-);
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}
-
-AppRegistry.registerComponent("App", () => App);
