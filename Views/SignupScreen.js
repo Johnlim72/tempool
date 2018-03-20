@@ -8,7 +8,7 @@ import {
   Text,
   TextInput
 } from "react-native";
-import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
+import { StackNavigator, NavigationOptions } from "react-navigation"; // Version can be specified in package.json
 import styles from "./style";
 
 export default class SignupScreen extends React.Component {
@@ -23,10 +23,12 @@ export default class SignupScreen extends React.Component {
       TextInputPhoneNumber: ""
     };
   }
+
   
+
   validateTempleEmail(email) {
     domain = email.substring(email.length - 10, email.length);
-    if(domain.toLowerCase() === "temple.edu") {
+    if (domain.toLowerCase() === "temple.edu") {
       return true;
     } else {
       return false;
@@ -65,7 +67,10 @@ export default class SignupScreen extends React.Component {
             [
               {
                 text: "OK",
-                onPress: () => this.props.navigation.navigate("Dashboard")
+                onPress: () =>
+                  this.props.navigation.navigate("Dashboard", {
+                    Email: TextInputEmail
+                  })
               }
             ],
             { cancelable: false }

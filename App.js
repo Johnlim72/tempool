@@ -9,15 +9,13 @@ import {
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
-import InitialScreen from './Views/InitialScreen';
-import CredentialsScreen from './Views/CredentialsScreen';
-import LoginScreen from './Views/LoginScreen';
-import SignupScreen from './Views/SignupScreen';
-import DashboardScreen from './Views/DashboardScreen';
-import ProfileScreen from './Views/ProfileScreen';
-import styles from './Views/style';
-
-
+import InitialScreen from "./Views/InitialScreen";
+import CredentialsScreen from "./Views/CredentialsScreen";
+import LoginScreen from "./Views/LoginScreen";
+import SignupScreen from "./Views/SignupScreen";
+import DashboardScreen from "./Views/DashboardScreen";
+import ProfileScreen from "./Views/ProfileScreen";
+import styles from "./Views/style";
 
 const RootStack = StackNavigator(
   {
@@ -34,7 +32,11 @@ const RootStack = StackNavigator(
       screen: SignupScreen
     },
     Dashboard: {
-      screen: DashboardScreen
+      screen: DashboardScreen,
+      navigationOptions:  {
+        title: 'Signup',
+        headerLeft: null
+    }
     },
     Profile: {
       screen: ProfileScreen
@@ -50,6 +52,5 @@ export default class App extends React.Component {
     return <RootStack />;
   }
 }
-
 
 AppRegistry.registerComponent("App", () => App);

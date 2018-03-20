@@ -13,6 +13,7 @@ import styles from "./style";
 
 export default class DashboardScreen extends React.Component {
   render() {
+    const { goBack } = this.props.navigation;
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text style={styles.TextComponentStyle}>
@@ -42,6 +43,9 @@ export default class DashboardScreen extends React.Component {
             }
             color="darkred"
           />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Logout" onPress={() => goBack(null)} />
         </View>
       </View>
     );
