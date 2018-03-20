@@ -30,7 +30,7 @@ const RootStack = StackNavigator(
     Dashboard: {
       screen: DashboardScreen,
       navigationOptions:  {
-        title: 'Signup',
+        title: 'Dashboard',
         headerLeft: null
     }
     },

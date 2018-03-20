@@ -131,8 +131,9 @@ export default class ProfileScreen extends React.Component {
           style={styles.background}
           resizeMode="cover"
         >
-          <View style={{flex: 1, marginTop: 100}}>
-            <Text style={{ color: "white" }}>Profile</Text>
+        <Text style={{ color: "white" , fontFamily: "Futura", fontSize: 30, paddingTop: 50}}>Profile</Text>
+          <View style={{flex: 1, marginTop: 30}}>
+
             <View style={styles.inputWrap}>
               <TextInput
                 placeholderTextColor="#b3b3b3"
@@ -160,10 +161,11 @@ export default class ProfileScreen extends React.Component {
                 placeholder="TU E-mail"
                 placeholderTextColor="#b3b3b3"
                 defaultValue={this.state.TextInputEmail}
+                editable= {false}
                 onChangeText={TextInputEmail =>
                   this.setState({ TextInputEmail })
                 }
-                style={[styles.input, { color: "white" }]}
+                style={[styles.input, { color: "gray" }]}
               />
             </View>
             <View style={styles.inputWrap}>

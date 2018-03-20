@@ -12,6 +12,11 @@ import { StackNavigator } from "react-navigation"; // Version can be specified i
 import styles from "./style";
 
 export default class DashboardScreen extends React.Component {
+  navigationOptions:  {
+    title: 'Dashboard',
+    headerLeft: null
+  }
+
   static navigationOptions = {
     header: null
   };
