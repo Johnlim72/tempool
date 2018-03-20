@@ -180,6 +180,7 @@ class SignupScreen extends React.Component {
           style={styles.textInput}
           placeholder="TU Email"
           onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
+          {this.state.TextInputEmail}
         />
         <TextInput
           style={styles.textInput}
@@ -408,5 +409,15 @@ const styles = StyleSheet.create({
     borderColor: "#000" //
   }
 });
+
+validateTempleEmail(email) {
+  domain = email.substring(email.length - 10, email);
+
+  if(domain.toLowerCase() === "temple.edu") {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 AppRegistry.registerComponent("App", () => App);
