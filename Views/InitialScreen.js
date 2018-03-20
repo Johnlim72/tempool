@@ -18,7 +18,6 @@ import styles from "./style";
 const { width, height } = Dimensions.get("window");
 
 const background = require("./login3_bg.jpg");
-const mark = require("./login1_mark.png");
 const lockIcon = require("./login1_lock.png");
 const personIcon = require("./login1_person.png");
 

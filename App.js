@@ -11,7 +11,6 @@ import {
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
 import InitialScreen from "./Views/InitialScreen";
 import CredentialsScreen from "./Views/CredentialsScreen";
-import LoginScreen from "./Views/LoginScreen";
 import SignupScreen from "./Views/SignupScreen";
 import DashboardScreen from "./Views/DashboardScreen";
 import ProfileScreen from "./Views/ProfileScreen";
@@ -24,9 +23,6 @@ const RootStack = StackNavigator(
     },
     Credentials: {
       screen: CredentialsScreen
-    },
-    Login: {
-      screen: LoginScreen
     },
     Signup: {
       screen: SignupScreen
