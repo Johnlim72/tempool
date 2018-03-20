@@ -9,7 +9,7 @@ import {
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
-import styles from './style';
+import styles from "./style";
 
 export default class SignupScreen extends React.Component {
   constructor(props) {
@@ -45,13 +45,29 @@ export default class SignupScreen extends React.Component {
         phoneNumber: TextInputPhoneNumber
       })
     })
-      .then(response => console.log(response))
+      .then(response => response.json())
       .then(responseJson => {
-        // Showing response message coming from server after inserting records.
-        Alert.alert(responseJson);
+        if (responseJson === "User successfully created.") {
+          //Then open Profile activity and send user email to profile activity.
+
+          Alert.alert(
+            "Success!",
+            "User created",
+            [
+              {
+                text: "OK",
+                onPress: () => this.props.navigation.navigate("Dashboard")
+              }
+            ],
+            { cancelable: false }
+          );
+          console.log(responseJson);
+        } else {
+          Alert.alert(responseJson);
+        }
       })
       .catch(error => {
-        console.error("error: " + error);
+        console.error(error);
       });
   };
 
