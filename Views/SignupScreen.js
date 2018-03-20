@@ -23,6 +23,15 @@ export default class SignupScreen extends React.Component {
       TextInputPhoneNumber: ""
     };
   }
+  
+  validateTempleEmail(email) {
+    domain = email.substring(email.length - 10, email.length);
+    if(domain.toLowerCase() === "temple.edu") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   InsertDataToServer = () => {
     const { TextInputFirstName } = this.state;
