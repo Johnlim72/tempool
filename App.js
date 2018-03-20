@@ -410,14 +410,4 @@ const styles = StyleSheet.create({
   }
 });
 
-validateTempleEmail(email) {
-  domain = email.substring(email.length - 10, email);
-
-  if(domain.toLowerCase() === "temple.edu") {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 AppRegistry.registerComponent("App", () => App);
