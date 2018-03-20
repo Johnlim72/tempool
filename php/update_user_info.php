@@ -12,7 +12,7 @@
   // Get current credentials
   if($obj['email'] != "") {
     $getCredentialsQuery = "SELECT * FROM User WHERE email = '$email'";
-    $credentials = mysqli->query($getCredentialsQuery);
+    $credentials = mysqli_query($getCredentialsQuery);
     $credentialsRow = mysqli_fetch_array($credentials, MYSQL_ASSOC);
 
     // Set variable values from the returned row
@@ -42,7 +42,7 @@
 
       // Update the user information
       $updateUserCredentialsQuery = "UPDATE User SET firstName='$firstName', lastName='$lastName', phoneNumber='$phoneNumber', password='$password' WHERE email='$email'";
-      if(mysqli->query($updateUserCredentialsQuery)) {
+      if(mysqli_query($updateUserCredentialsQuery)) {
         echo json_encode("User successfully updated.");
       } else {
         echo json_encode("Unexpected error when updating user.");
