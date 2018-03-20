@@ -48,9 +48,12 @@ const RootStack = StackNavigator(
 );
 
 export default class App extends React.Component {
+
   render() {
     return <RootStack />;
   }
+
+
 }
 
 AppRegistry.registerComponent("App", () => App);
