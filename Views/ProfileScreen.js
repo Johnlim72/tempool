@@ -6,12 +6,18 @@ import {
   Button,
   View,
   Text,
+  ImageBackground,
+  Dimensions,
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
 import styles from "./style";
 
+const { width, height } = Dimensions.get("window");
+const background = require("./login3_bg.jpg");
+
 export default class ProfileScreen extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -120,56 +126,86 @@ export default class ProfileScreen extends React.Component {
           justifyContent: "center"
         }}
       >
-        <Text style={{ color: "white" }}>Profile</Text>
-        <Text style={styles.TextComponentStyle}>
-          {this.props.navigation.state.params.Email}
-        </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="First Name"
-          defaultValue={this.state.TextInputFirstName}
-          onChangeText={TextInputFirstName =>
-            this.setState({ TextInputFirstName })
-          }
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Last Name"
-          defaultValue={this.state.TextInputLastName}
-          onChangeText={TextInputLastName =>
-            this.setState({ TextInputLastName })
-          }
-        />
-        <TextInput
-          style={styles.textInputFalse}
-          placeholder="TU Email"
-          defaultValue={this.state.TextInputEmail}
-          editable = {false}
-          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
-        />
-        <TextInput
-          style={styles.textInput}
-          secureTextEntry={true} //does the *** thing
-          placeholder="Password"
-          defaultValue={this.state.TextPassword}
-          onChangeText={TextPassword => this.setState({ TextPassword })}
-        />
+        <ImageBackground
+          source={background}
+          style={styles.background}
+          resizeMode="cover"
+        >
+          <View style={{flex: 1, marginTop: 100}}>
+            <Text style={{ color: "white" }}>Profile</Text>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholderTextColor="#b3b3b3"
+                placeholder="First Name"
+                defaultValue={this.state.TextInputFirstName}
+                onChangeText={TextInputFirstName =>
+                  this.setState({ TextInputFirstName })
+                }
+                style={[styles.input, { color: "white" }]}
+              />
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholderTextColor="#b3b3b3"
+                placeholder="Last Name"
+                defaultValue={this.state.TextInputLastName}
+                onChangeText={TextInputLastName =>
+                  this.setState({ TextInputLastName })
+                }
+                style={[styles.input, { color: "white" }]}
+              />
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholder="TU E-mail"
+                placeholderTextColor="#b3b3b3"
+                defaultValue={this.state.TextInputEmail}
+                onChangeText={TextInputEmail =>
+                  this.setState({ TextInputEmail })
+                }
+                style={[styles.input, { color: "white" }]}
+              />
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholderTextColor="#b3b3b3"
+                placeholder="Password"
+                defaultValue={this.state.TextPassword}
+                onChangeText={TextPassword => this.setState({ TextPassword })}
+                style={[styles.input, { color: "white" }]}
+                secureTextEntry
+              />
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholderTextColor="#b3b3b3"
+                placeholder="Confirm Password"
+                defaultValue={this.state.TextPassword}
+                style={[styles.input, { color: "white" }]}
+                secureTextEntry
+              />
+            </View>
+            <View style={styles.inputWrap}>
+              <TextInput
+                placeholderTextColor="#b3b3b3"
+                placeholder="Phone Number"
+                defaultValue={this.state.TextInputPhoneNumber}
+                onChangeText={TextInputPhoneNumber =>
+                  this.setState({ TextInputPhoneNumber })
+                }
+                style={[styles.input, { color: "white" }]}
+              />
+            </View>
 
-        <TextInput
-          style={styles.textInput}
-          placeholder="Phone Number"
-          defaultValue={this.state.TextInputPhoneNumber}
-          onChangeText={TextInputPhoneNumber =>
-            this.setState({ TextInputPhoneNumber })
-          }
-        />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Save"
-            onPress={this.UpdateDataToServer}
-            color="darkred"
-          />
-        </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Save"
+                onPress={this.UpdateDataToServer}
+                color="darkred"
+              />
+            </View>
+          </View>
+        </ImageBackground>
       </View>
     );
   }

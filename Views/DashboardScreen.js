@@ -20,7 +20,6 @@ export default class DashboardScreen extends React.Component {
     const { goBack } = this.props.navigation;
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      
         <View style={styles.buttonContainer}>
           <Button
             title="Find a Ride"
@@ -47,7 +46,10 @@ export default class DashboardScreen extends React.Component {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Logout" onPress={() => goBack(null)} />
+          <Button
+            title="Logout"
+            onPress={() => this.props.navigation.navigate("Initial")}
+          />
         </View>
       </View>
     );

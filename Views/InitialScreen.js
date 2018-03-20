@@ -102,7 +102,7 @@ export default class InitialScreen extends React.Component {
                 />
               </View>
               <TextInput
-                placeholder="E-mail"
+                placeholder="TU E-mail"
                 placeholderTextColor="#b3b3b3"
                 onChangeText={TextInputEmail =>
                   this.setState({ TextInputEmail })

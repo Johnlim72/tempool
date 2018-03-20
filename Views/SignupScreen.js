@@ -3,6 +3,9 @@ import {
   AppRegistry,
   Alert,
   StyleSheet,
+  Dimensions,
+  Image,
+  ImageBackground,
   Button,
   View,
   Text,
@@ -11,7 +14,14 @@ import {
 import { StackNavigator, NavigationOptions } from "react-navigation"; // Version can be specified in package.json
 import styles from "./style";
 
+const { width, height } = Dimensions.get("window");
+
+const background = require("./login3_bg.jpg");
+const lockIcon = require("./login1_lock.png");
+const personIcon = require("./login1_person.png");
+
 export default class SignupScreen extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -23,8 +33,6 @@ export default class SignupScreen extends React.Component {
       TextInputPhoneNumber: ""
     };
   }
-
-  
 
   validateTempleEmail(email) {
     domain = email.substring(email.length - 10, email.length);
@@ -60,7 +68,6 @@ export default class SignupScreen extends React.Component {
       .then(responseJson => {
         if (responseJson === "User successfully created.") {
           //Then open Profile activity and send user email to profile activity.
-
           Alert.alert(
             "Success!",
             "User created",
@@ -94,51 +101,75 @@ export default class SignupScreen extends React.Component {
           justifyContent: "center"
         }}
       >
-        <TextInput
-          style={styles.textInput}
-          placeholder="First Name"
-          onChangeText={TextInputFirstName =>
-            this.setState({ TextInputFirstName })
-          }
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Last Name"
-          onChangeText={TextInputLastName =>
-            this.setState({ TextInputLastName })
-          }
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="TU Email"
-          onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
-        />
-        <TextInput
-          style={styles.textInput}
-          secureTextEntry={true} //does the *** thing
-          placeholder="Password"
-          onChangeText={TextPassword => this.setState({ TextPassword })}
-        />
-        <TextInput
-          style={styles.textInput}
-          secureTextEntry={true}
-          placeholder="Confirm Password"
-        />
+        <ImageBackground
+          source={background}
+          style={styles.background}
+          resizeMode="cover"
+        >
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholderTextColor="#b3b3b3"
+              placeholder="First Name"
+              onChangeText={TextInputFirstName =>
+                this.setState({ TextInputFirstName })
+              }
+              style={[styles.input, { color: "white" }]}
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholderTextColor="#b3b3b3"
+              placeholder="Last Name"
+              onChangeText={TextInputLastName =>
+                this.setState({ TextInputLastName })
+              }
+              style={[styles.input, { color: "white" }]}
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholder="TU E-mail"
+              placeholderTextColor="#b3b3b3"
+              onChangeText={TextInputEmail => this.setState({ TextInputEmail })}
+              style={[styles.input, { color: "white" }]}
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholderTextColor="#b3b3b3"
+              placeholder="Password"
+              onChangeText={TextPassword => this.setState({ TextPassword })}
+              style={[styles.input, { color: "white" }]}
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholderTextColor="#b3b3b3"
+              placeholder="Confirm Password"
+              style={[styles.input, { color: "white" }]}
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.inputWrap}>
+            <TextInput
+              placeholderTextColor="#b3b3b3"
+              placeholder="Phone Number"
+              onChangeText={TextInputPhoneNumber =>
+                this.setState({ TextInputPhoneNumber })
+              }
+              style={[styles.input, { color: "white" }]}
+            />
+          </View>
 
-        <TextInput
-          style={styles.textInput}
-          placeholder="Phone Number"
-          onChangeText={TextInputPhoneNumber =>
-            this.setState({ TextInputPhoneNumber })
-          }
-        />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Sign Up"
-            onPress={this.InsertDataToServer}
-            color="darkred"
-          />
-        </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Sign Up"
+              onPress={this.InsertDataToServer}
+              color="darkred"
+            />
+          </View>
+        </ImageBackground>
       </View>
     );
   }
