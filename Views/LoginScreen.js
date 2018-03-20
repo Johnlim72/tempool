@@ -9,7 +9,7 @@ import {
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
-import styles from './style';
+import styles from "./style";
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
@@ -41,7 +41,9 @@ export default class LoginScreen extends React.Component {
         // If server response message same as Data Matched
         if (responseJson === "Data Matched") {
           //Then open Profile activity and send user email to profile activity.
-          this.props.navigation.navigate("Dashboard");
+          this.props.navigation.navigate("Dashboard", {
+            Email: TextInputEmail
+          });
           console.log(responseJson);
         } else {
           Alert.alert(responseJson);
