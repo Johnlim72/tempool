@@ -9,6 +9,7 @@ import {
   TextInput
 } from "react-native";
 import { StackNavigator } from "react-navigation"; // Version can be specified in package.json
+<<<<<<< HEAD
 
 class InitialScreen extends React.Component {
   render() {
@@ -238,6 +239,14 @@ class DashboardScreen extends React.Component {
     );
   }
 }
+=======
+import InitialScreen from './Views/InitialScreen';
+import CredentialsScreen from './Views/CredentialsScreen';
+import LoginScreen from './Views/LoginScreen';
+import SignupScreen from './Views/SignupScreen';
+import DashboardScreen from './Views/DashboardScreen';
+import styles from './Views/style';
+>>>>>>> f85e42a5435a9eb887f3f94f46838747ad8b51ba
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -373,41 +382,13 @@ export default class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  bigblue: {
-    color: "blue",
-    fontWeight: "bold",
-    fontSize: 30
-  },
-  red: {
-    color: "red"
-  },
-  bigred: {
-    color: "red",
-    fontSize: 30
-  },
-  buttonContainer: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#fff",
-    padding: 20
-  },
-  textInput: {
-    //
-    height: 30, //
-    margin: 5, //
-    borderWidth: 1,
-    backgroundColor: "lightgray", //
-    borderColor: "#000" //
+validateTempleEmail(email) {
+  domain = email.substring(email.length - 10, email.length);
+  if(domain.toLowerCase() === "temple.edu") {
+    return true;
+  } else {
+    return false;
   }
-});
+}
 
 AppRegistry.registerComponent("App", () => App);
