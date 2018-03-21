@@ -14,6 +14,7 @@ import CredentialsScreen from "./Views/CredentialsScreen";
 import SignupScreen from "./Views/SignupScreen";
 import DashboardScreen from "./Views/DashboardScreen";
 import ProfileScreen from "./Views/ProfileScreen";
+import ScheduleScreen from "./Views/ScheduleScreen";
 import styles from "./Views/style";
 
 const RootStack = StackNavigator(
@@ -28,11 +29,13 @@ const RootStack = StackNavigator(
       screen: SignupScreen
     },
     Dashboard: {
-      screen: DashboardScreen,
-
+      screen: DashboardScreen
     },
     Profile: {
       screen: ProfileScreen
+    },
+    Schedule: {
+      screen: ScheduleScreen
     }
   },
   {
@@ -41,12 +44,9 @@ const RootStack = StackNavigator(
 );
 
 export default class App extends React.Component {
-
   render() {
     return <RootStack />;
   }
-
-
 }
 
 AppRegistry.registerComponent("App", () => App);

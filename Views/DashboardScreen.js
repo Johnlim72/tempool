@@ -116,13 +116,13 @@ export default class DashboardScreen extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Initial")}
+              onPress={() => this.props.navigation.navigate("Schedule")}
               activeOpacity={0.5}
             >
               <View style={styles.buttonContainer}>
                 <Button
                   title="Schedule a Ride"
-                  onPress={() => this.props.navigation.navigate("Initial")}
+                  onPress={() => this.props.navigation.navigate("Schedule")}
                   color="darkred"
                 />
               </View>
