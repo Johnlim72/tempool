@@ -64,7 +64,7 @@ export default StyleSheet.create({
   },
   inputWrap: {
     flexDirection: "row",
-    marginVertical: 10,
+    marginBottom: 10,
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: "#CCC"

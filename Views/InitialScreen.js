@@ -104,6 +104,7 @@ export default class InitialScreen extends React.Component {
               <TextInput
                 placeholder="TU E-mail"
                 placeholderTextColor="#b3b3b3"
+                autoCapitalize= "none"
                 onChangeText={TextInputEmail =>
                   this.setState({ TextInputEmail })
                 }

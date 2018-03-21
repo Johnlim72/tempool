@@ -29,10 +29,7 @@ const RootStack = StackNavigator(
     },
     Dashboard: {
       screen: DashboardScreen,
-      navigationOptions:  {
-        title: 'Dashboard',
-        headerLeft: null
-    }
+
     },
     Profile: {
       screen: ProfileScreen
